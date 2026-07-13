@@ -1,47 +1,41 @@
-
-/*
-
---Create Database and Schemas
-
-Script Purpose:
-This script creates a new database named 'DataWarehouse' after checking if it already exists.
-If the database exists, it is dropped and recreated. Additionally, the script sets up three schemas
-within the database: 'bronze', 'silver', and 'gold'.
-
-WARNING:
-Running this script will drop the entire 'DataWarehouse' database if it exists.
-All data in the database will be permanently deleted. Proceed with caution
-and ensure you have proper backups before running this script.
-
-*/
-
-
-
 USE master;
+IF DB_ID('Datawarehouse') IS NULL
+BEGIN 
+	CREATE DATABASE Datawarehouse
+	PRINT 'Database Created'
+END
+ELSE
+	BEGIN 
+	PRINT 'DATAWARE HOUSE ALREADY EXISTS'
+END ;
+GO
+USE Datawarehouse
 GO
 
--- Drop and recreate the 'DataWarehouse' database
-IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'DataWarehouse')
-BEGIN
-  ALTER DATABASE DataWarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-  DROP DATABASE DataWarehouse;
+-- it will creat the schemas if not present , if they are present it will use the allready exsists 
+IF SCHEMA_ID('bronze') is NULL
+BEGIN 
+	EXEC('CREATE SCHEMA BRONZE');
+END
+ELSE
+	BEGIN 
+	PRINT 'SCHEMAS ALREADY EXISTS'
 END;
-GO
 
-I
+IF SCHEMA_ID('silver') is NULL
+BEGIN 
+	EXEC('CREATE SCHEMA silver ');
+END
+ELSE
+	BEGIN 
+	PRINT 'SCHEMAS ALREADY EXISTS'
+END;
 
--- Create the 'DataWarehouse' database
-CREATE DATABASE DataWarehouse;
-GO
-
-USE DataWarehouse ;
-GO
-
---create schemas 
-
-CREATE SCHEMAS BRONZE ;
-GO 
-CREATE SCHEMAS GOLD ;
-GO
-CREATE SCHEMAS SILVER  ;
-GO
+IF SCHEMA_ID('gold') is NULL
+BEGIN 
+	EXEC('CREATE SCHEMA gold ');
+END
+ELSE
+	BEGIN 
+	PRINT 'SCHEMAS ALREADY EXISTS'
+END;

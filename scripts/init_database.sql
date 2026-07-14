@@ -1,13 +1,12 @@
 USE master;
-IF DB_ID('Datawarehouse') IS NULL
+IF DB_ID('Datawarehouse') IS NOT NULL
 BEGIN 
-	CREATE DATABASE Datawarehouse
-	PRINT 'Database Created'
+	ALTER DATABASE Datawarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+	DROP  DATABASE Datawarehouse;
+	
 END
-ELSE
-	BEGIN 
-	PRINT 'DATAWARE HOUSE ALREADY EXISTS'
-END ;
+GO
+	CREATE DATABSE Datawarehouse;
 GO
 USE Datawarehouse
 GO

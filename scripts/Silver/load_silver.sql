@@ -1,3 +1,9 @@
+-- This query helps to load the data from bronze layer with some correction. 
+-- This whole query can be run by EXEC silver.load_silver beacuse we have created a procedure and it is silver.load_silver.
+
+
+
+
 CREATE OR ALTER PROCEDURE silver.load_silver AS
 BEGIN
      
